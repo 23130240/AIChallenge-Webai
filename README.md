@@ -1,9 +1,6 @@
 # object-detection-project
-Tuyệt vời! Dưới đây là phần **chốt cuối cùng**: bao gồm cả **cấu trúc project chuẩn viết theo OOP/OOD** và **bảng phân công công việc đầy đủ** cho **nhóm 2 người** trong tuần đầu thực hiện dự án nhận diện vật thể trong ảnh bằng YOLOv8.
-
 ---
-
-## ✅ **I. CẤU TRÚC PROJECT THEO OOP/OOD**
+## ✅ **I. CẤU TRÚC PROJECT**
 
 ```
 object_detection_project/
@@ -33,7 +30,7 @@ object_detection_project/
 
 ---
 
-## 📋 **II. BẢNG PHÂN CÔNG CÔNG VIỆC (cho nhóm 2 người)**
+## 📋 **II. BẢNG PHÂN CÔNG CÔNG VIỆC**
 
 | STT | Công việc cụ thể                                      | Người thực hiện   | Deadline | Ghi chú                              |
 | --- | ----------------------------------------------------- | ----------------- | -------- | ------------------------------------ |
