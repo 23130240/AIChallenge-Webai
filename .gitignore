@@ -7,8 +7,8 @@ __pycache__/
 *.pyd
 
 # VIRTUAL ENVIRONMENTS
-venv/
-env/
+.venv/
+.env/
 
 # IDEs
 .vscode/
