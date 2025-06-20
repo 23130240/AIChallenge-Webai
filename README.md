@@ -134,5 +134,100 @@ main        ← ổn định, release
    ├─ feature/gui-basic
    └─ fix/image-load-error
 ```
+---
 
+## 📦 **1. Mô hình làm việc nhóm chuẩn (2 người trở lên)**
 
+```
+GitHub (main)
+   │
+   └─ dev (nhánh phát triển chung)
+         ├── feature/gui
+         └── feature/detector
+```
+
+---
+
+## 🔁 **2. Quy trình chuẩn từng bước (cho mỗi thành viên)**
+
+### 🔹 **Lần đầu setup**
+
+```bash
+git clone <repo-url>
+cd object-detection-project
+git checkout -b dev      # Nếu chưa có nhánh dev
+git push -u origin dev
+```
+
+---
+
+### 🔹 **Mỗi khi bạn muốn code 1 tính năng mới**
+
+```bash
+git checkout dev                             # 1. Đảm bảo đang ở dev
+git pull origin dev                          # 2. Lấy code mới nhất về
+git checkout -b feature/gui                  # 3. Tạo nhánh riêng
+```
+
+Bạn **code thoải mái** trên nhánh `feature/gui`.
+
+---
+
+### 🔹 **Khi bạn hoàn thành tính năng**
+
+```bash
+git add .                     # 1. Chọn file cần commit
+git commit -m "Thêm giao diện đơn giản"  # 2. Commit
+git push origin feature/gui  # 3. Push lên GitHub
+```
+
+---
+
+### 🔹 **Tạo Pull Request (PR)**
+
+* Vào GitHub
+* Chọn nhánh `feature/gui`
+* Bấm "Compare & Pull Request" về nhánh `dev`
+
+→ Người khác review → Merge!
+
+---
+
+### 🔄 **Mỗi sáng trước khi làm tiếp**
+
+```bash
+git checkout dev
+git pull origin dev
+```
+
+> Đảm bảo bạn luôn có **code mới nhất của cả nhóm** trước khi làm tiếp
+
+---
+
+## 🧠 **3. Khi nào push/pull/commit/merge?**
+
+| Khi nào?                 | Làm gì?                | Lệnh                       |
+| ------------------------ | ---------------------- | -------------------------- |
+| Xong 1 phần việc         | `commit`               | `git commit -m "Mô tả"`    |
+| Muốn lưu lên GitHub      | `push`                 | `git push origin <branch>` |
+| Bắt đầu làm mới          | `pull`                 | `git pull origin dev`      |
+| Gộp code vào nhánh chung | `pull request + merge` | Qua GitHub                 |
+
+---
+
+## ✅ Vòng đời 1 task
+
+```bash
+git checkout dev
+git pull origin dev
+git checkout -b feature/x
+
+# → Viết code
+
+git add .
+git commit -m "Xong phần X"
+git push origin feature/x
+
+# → Lên GitHub: tạo Pull Request về dev
+```
+---
