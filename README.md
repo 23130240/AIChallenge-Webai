@@ -1,6 +1,6 @@
 # object-detection-project
 ---
-## ✅ **I. CẤU TRÚC PROJECT**
+## **I. CẤU TRÚC PROJECT**
 
 ```
 object_detection_project/
@@ -30,7 +30,7 @@ object_detection_project/
 
 ---
 
-## 📋 **II. BẢNG PHÂN CÔNG CÔNG VIỆC**
+## **II. BẢNG PHÂN CÔNG CÔNG VIỆC**
 
 | STT | Công việc cụ thể                                      | Người thực hiện   | Deadline | Ghi chú                              |
 | --- | ----------------------------------------------------- | ----------------- | -------- | ------------------------------------ |
@@ -58,9 +58,7 @@ object_detection_project/
 | `detect.py` (hoặc `main.py`) | Tích hợp pipeline detect ảnh                   |
 
 ---
-## ✅ **III. CHÚ Ý**
-
-Dưới đây là bản **tổng hợp ngắn gọn, hệ thống, dễ theo dõi** cho toàn bộ hướng dẫn làm việc nhóm với Git:
+## **III. CHÚ Ý**
 
 ---
 
