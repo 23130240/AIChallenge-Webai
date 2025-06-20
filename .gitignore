@@ -1,0 +1,52 @@
+# -------------------------
+# PYTHON
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# VIRTUAL ENVIRONMENTS
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# SYSTEM FILES
+.DS_Store
+Thumbs.db
+
+# LOG FILES
+*.log
+
+# -------------------------
+# YOLO / ML FILES
+# -------------------------
+# YOLO output (Ultralytics saves here by default)
+runs/
+results/
+weights/
+
+# MODEL FILES
+*.pt
+*.onnx
+*.tflite
+*.engine
+
+# DATASETS / MEDIA
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.avi
+*.mov
+
+# JUPYTER NOTEBOOK CACHE
+.ipynb_checkpoints/
+
+# BACKUP FILES
+*.bak
+*.tmp
