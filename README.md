@@ -60,71 +60,112 @@ object_detection_project/
 ---
 ## ✅ **III. CHÚ Ý**
 
-### 📌 Có 3 loại nhánh chính:
-
-| Nhánh                | Mục đích                                   | Ai làm gì                         |
-| -------------------- | ------------------------------------------ | --------------------------------- |
-| `main` hoặc `master` | Nhánh chính, chứa code ổn định, đã test kỹ | Chỉ merge khi đã hoàn thiện       |
-| `dev`                | Nhánh phát triển chung                     | Mỗi người tạo nhánh con từ đây    |
-| `feature/...`        | Nhánh con để phát triển từng chức năng     | Mỗi người code 1 nhánh riêng biệt |
+Dưới đây là bản **tổng hợp ngắn gọn, hệ thống, dễ theo dõi** cho toàn bộ hướng dẫn làm việc nhóm với Git:
 
 ---
 
-## 📌 **2. Cách đặt tên nhánh (chuẩn và dễ hiểu)**
+### ✅ **1. Cấu trúc nhánh Git**
 
-| Tên nhánh                 | Dùng cho                       |
-| ------------------------- | ------------------------------ |
-| `feature/detect-yolo`     | Phát triển phần nhận diện YOLO |
-| `feature/gui-basic`       | Giao diện ban đầu              |
-| `feature/image-utils`     | Viết hàm đọc ảnh, vẽ ảnh       |
-| `fix/yolo-output-error`   | Sửa lỗi liên quan output YOLO  |
-| `refactor/class-detector` | Tái cấu trúc class `Detector`  |
-| `docs/readme-update`      | Chỉnh sửa README, hướng dẫn    |
+| Nhánh                | Mục đích                              | Ai làm gì                       |
+| -------------------- | ------------------------------------- | ------------------------------- |
+| `main` hoặc `master` | Chứa code **ổn định**, đã test kỹ     | Chỉ merge khi đã hoàn thiện     |
+| `dev`                | Nhánh phát triển **chính**            | Mỗi người tạo nhánh con từ đây  |
+| `feature/...`        | Nhánh phát triển **chức năng cụ thể** | Mỗi người code trên nhánh riêng |
+| `fix/...`            | Dùng để **sửa lỗi**                   |                                 |
+| `refactor/...`       | Dùng để **tái cấu trúc**              |                                 |
+| `docs/...`           | Dùng để **cập nhật tài liệu, README** |                                 |
 
 ---
 
-## 🧑‍💻 **3. Quy trình làm việc nhóm (chuẩn Git flow nhẹ)**
+### 🏷️ **2. Quy tắc đặt tên nhánh**
+
+| Tên nhánh                 | Dùng cho                         |
+| ------------------------- | -------------------------------- |
+| `feature/gui-basic`       | Tạo giao diện ban đầu            |
+| `feature/detect-yolo`     | Viết module nhận diện YOLO       |
+| `fix/yolo-output-error`   | Sửa lỗi liên quan đến YOLO       |
+| `refactor/class-detector` | Tối ưu lại code class `Detector` |
+| `docs/readme-update`      | Chỉnh sửa tài liệu hướng dẫn     |
+
+---
+
+### 🔁 **3. Quy trình làm việc Git (Chuẩn nhóm)**
+
+#### 🔹 **Lần đầu setup**
 
 ```bash
-# Bước 1: clone project về
-git clone https://github.com/your-team/project.git
-cd project
-
-# Bước 2: tạo nhánh phát triển (nếu chưa có)
-git checkout -b dev
+git clone <repo-url>
+cd <project>
+git checkout -b dev      # Nếu chưa có nhánh dev
 git push -u origin dev
-
-# Bước 3: mỗi người tạo nhánh riêng từ dev
-git checkout dev
-git checkout -b feature/image-utils
 ```
 
-Sau đó mỗi người **code trên nhánh của mình** → **push lên GitHub** → **tạo pull request về `dev`** để review & test.
+---
+
+#### 🔹 **Tạo nhánh khi bắt đầu task**
+
+```bash
+git checkout dev
+git pull origin dev                  # Luôn cập nhật code mới
+git checkout -b feature/<task-name> # VD: feature/image-utils
+```
 
 ---
 
-## 🔁 **4. Ví dụ quy trình merge**
+#### 🔹 **Khi hoàn thành task**
 
-1. Thành viên A hoàn thành `feature/image-utils`
-2. Push lên GitHub
-3. Tạo Pull Request từ `feature/image-utils` → `dev`
-4. Review OK → merge
-5. Khi `dev` ổn định → merge vào `main`
+```bash
+git add .
+git commit -m "Mô tả ngắn gọn"
+git push origin feature/<task-name>
+```
 
----
-
-## 🧠 **5. Tips cho teamwork dễ hiểu, dễ merge**
-
-| Quy tắc                                | Giải thích                         |
-| -------------------------------------- | ---------------------------------- |
-| Mỗi chức năng → 1 nhánh riêng          | Tránh code chồng chéo              |
-| Không commit trực tiếp vào `main`      | Giữ code ổn định                   |
-| Thường xuyên `pull` nhánh `dev` mới về | Để tránh xung đột                  |
-| Tên nhánh nên ngắn gọn, rõ ràng        | VD: `feature/train`, `fix/gui-bug` |
+→ Tạo **Pull Request về `dev`** trên GitHub
+→ Người khác **review** → Merge!
 
 ---
 
-## ✅ Cấu trúc nhánh bạn nên dùng
+#### 🔹 **Mỗi sáng bắt đầu làm việc**
+
+```bash
+git checkout dev
+git pull origin dev
+```
+
+→ Luôn cập nhật code mới nhất từ nhóm để tránh xung đột.
+
+---
+
+### 📌 **4. Quy tắc teamwork**
+
+| Quy tắc                           | Lý do                              |
+| --------------------------------- | ---------------------------------- |
+| Mỗi tính năng → 1 nhánh riêng     | Dễ kiểm soát, tránh đụng code nhau |
+| Không commit trực tiếp vào `main` | Tránh làm hỏng code ổn định        |
+| Tên nhánh rõ ràng, ngắn gọn       | Dễ hiểu, dễ quản lý                |
+| Luôn pull dev trước khi code      | Tránh merge conflict               |
+
+---
+
+### 🔄 **5. Vòng đời 1 Task (tóm gọn)**
+
+```bash
+git checkout dev
+git pull origin dev
+git checkout -b feature/x
+
+## → Viết code
+
+git add .
+git commit -m "Xong phần X"
+git push origin feature/x
+
+## → Lên GitHub: tạo Pull Request về dev
+```
+
+---
+
+### 🗂️ **6. Sơ đồ nhánh (minh họa)**
 
 ```
 main        ← ổn định, release
@@ -134,100 +175,5 @@ main        ← ổn định, release
    ├─ feature/gui-basic
    └─ fix/image-load-error
 ```
----
 
-## 📦 **1. Mô hình làm việc nhóm chuẩn (2 người trở lên)**
-
-```
-GitHub (main)
-   │
-   └─ dev (nhánh phát triển chung)
-         ├── feature/gui
-         └── feature/detector
-```
-
----
-
-## 🔁 **2. Quy trình chuẩn từng bước (cho mỗi thành viên)**
-
-### 🔹 **Lần đầu setup**
-
-```bash
-git clone <repo-url>
-cd object-detection-project
-git checkout -b dev      # Nếu chưa có nhánh dev
-git push -u origin dev
-```
-
----
-
-### 🔹 **Mỗi khi bạn muốn code 1 tính năng mới**
-
-```bash
-git checkout dev                             # 1. Đảm bảo đang ở dev
-git pull origin dev                          # 2. Lấy code mới nhất về
-git checkout -b feature/gui                  # 3. Tạo nhánh riêng
-```
-
-Bạn **code thoải mái** trên nhánh `feature/gui`.
-
----
-
-### 🔹 **Khi bạn hoàn thành tính năng**
-
-```bash
-git add .                     # 1. Chọn file cần commit
-git commit -m "Thêm giao diện đơn giản"  # 2. Commit
-git push origin feature/gui  # 3. Push lên GitHub
-```
-
----
-
-### 🔹 **Tạo Pull Request (PR)**
-
-* Vào GitHub
-* Chọn nhánh `feature/gui`
-* Bấm "Compare & Pull Request" về nhánh `dev`
-
-→ Người khác review → Merge!
-
----
-
-### 🔄 **Mỗi sáng trước khi làm tiếp**
-
-```bash
-git checkout dev
-git pull origin dev
-```
-
-> Đảm bảo bạn luôn có **code mới nhất của cả nhóm** trước khi làm tiếp
-
----
-
-## 🧠 **3. Khi nào push/pull/commit/merge?**
-
-| Khi nào?                 | Làm gì?                | Lệnh                       |
-| ------------------------ | ---------------------- | -------------------------- |
-| Xong 1 phần việc         | `commit`               | `git commit -m "Mô tả"`    |
-| Muốn lưu lên GitHub      | `push`                 | `git push origin <branch>` |
-| Bắt đầu làm mới          | `pull`                 | `git pull origin dev`      |
-| Gộp code vào nhánh chung | `pull request + merge` | Qua GitHub                 |
-
----
-
-## ✅ Vòng đời 1 task
-
-```bash
-git checkout dev
-git pull origin dev
-git checkout -b feature/x
-
-# → Viết code
-
-git add .
-git commit -m "Xong phần X"
-git push origin feature/x
-
-# → Lên GitHub: tạo Pull Request về dev
-```
 ---
