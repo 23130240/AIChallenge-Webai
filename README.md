@@ -58,4 +58,81 @@ object_detection_project/
 | `detect.py` (hoặc `main.py`) | Tích hợp pipeline detect ảnh                   |
 
 ---
+## ✅ **III. CHÚ Ý**
+
+### 📌 Có 3 loại nhánh chính:
+
+| Nhánh                | Mục đích                                   | Ai làm gì                         |
+| -------------------- | ------------------------------------------ | --------------------------------- |
+| `main` hoặc `master` | Nhánh chính, chứa code ổn định, đã test kỹ | Chỉ merge khi đã hoàn thiện       |
+| `dev`                | Nhánh phát triển chung                     | Mỗi người tạo nhánh con từ đây    |
+| `feature/...`        | Nhánh con để phát triển từng chức năng     | Mỗi người code 1 nhánh riêng biệt |
+
+---
+
+## 📌 **2. Cách đặt tên nhánh (chuẩn và dễ hiểu)**
+
+| Tên nhánh                 | Dùng cho                       |
+| ------------------------- | ------------------------------ |
+| `feature/detect-yolo`     | Phát triển phần nhận diện YOLO |
+| `feature/gui-basic`       | Giao diện ban đầu              |
+| `feature/image-utils`     | Viết hàm đọc ảnh, vẽ ảnh       |
+| `fix/yolo-output-error`   | Sửa lỗi liên quan output YOLO  |
+| `refactor/class-detector` | Tái cấu trúc class `Detector`  |
+| `docs/readme-update`      | Chỉnh sửa README, hướng dẫn    |
+
+---
+
+## 🧑‍💻 **3. Quy trình làm việc nhóm (chuẩn Git flow nhẹ)**
+
+```bash
+# Bước 1: clone project về
+git clone https://github.com/your-team/project.git
+cd project
+
+# Bước 2: tạo nhánh phát triển (nếu chưa có)
+git checkout -b dev
+git push -u origin dev
+
+# Bước 3: mỗi người tạo nhánh riêng từ dev
+git checkout dev
+git checkout -b feature/image-utils
+```
+
+Sau đó mỗi người **code trên nhánh của mình** → **push lên GitHub** → **tạo pull request về `dev`** để review & test.
+
+---
+
+## 🔁 **4. Ví dụ quy trình merge**
+
+1. Thành viên A hoàn thành `feature/image-utils`
+2. Push lên GitHub
+3. Tạo Pull Request từ `feature/image-utils` → `dev`
+4. Review OK → merge
+5. Khi `dev` ổn định → merge vào `main`
+
+---
+
+## 🧠 **5. Tips cho teamwork dễ hiểu, dễ merge**
+
+| Quy tắc                                | Giải thích                         |
+| -------------------------------------- | ---------------------------------- |
+| Mỗi chức năng → 1 nhánh riêng          | Tránh code chồng chéo              |
+| Không commit trực tiếp vào `main`      | Giữ code ổn định                   |
+| Thường xuyên `pull` nhánh `dev` mới về | Để tránh xung đột                  |
+| Tên nhánh nên ngắn gọn, rõ ràng        | VD: `feature/train`, `fix/gui-bug` |
+
+---
+
+## ✅ Cấu trúc nhánh bạn nên dùng
+
+```
+main        ← ổn định, release
+│
+└─ dev      ← nhánh phát triển chung
+   ├─ feature/detect-yolo
+   ├─ feature/gui-basic
+   └─ fix/image-load-error
+```
+
 
