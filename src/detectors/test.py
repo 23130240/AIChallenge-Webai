@@ -3,7 +3,7 @@ from yolov8n_detector import YOLOv8nDetector
 
 yolo = YOLOv8nDetector()
 
-img_path = r'C:\Users\thirvo\Projects\object-detection-project\images\bus.jpg'
+img_path = "public/image1.jpg"
 
 objects = yolo.object_detection(img_path, 0.5)
 

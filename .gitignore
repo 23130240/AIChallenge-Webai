@@ -9,6 +9,7 @@ __pycache__/
 # VIRTUAL ENVIRONMENTS
 .venv/
 .env/
+/venv/
 
 # IDEs
 .vscode/
@@ -50,3 +51,7 @@ weights/
 # BACKUP FILES
 *.bak
 *.tmp
+
+#data
+/data/
+/public/
