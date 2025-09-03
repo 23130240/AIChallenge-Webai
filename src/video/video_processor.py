@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from detectors.yolov8n_detector import YOLOv8nDetector
+from src.detectors.yolov8n_detector import YOLOv8nDetector
 import os
 from transformers import pipeline
 
@@ -11,7 +11,7 @@ class VideoProcessor:
         # QA pipeline (dùng BERT fine-tuned SQuAD)
         self.qa_pipeline = pipeline(
             "question-answering", 
-            model="bert-large-uncased-whole-word-masking-finetuned-squad"
+            model="distilbert-base-uncased-distilled-squad"
         )
         
     def extract_keyframes_scene_change(self, video_path, hist_threshold=0.9):
@@ -96,7 +96,7 @@ class VideoProcessor:
         query = query.lower()
         results = []
         for f in processed_frames:
-            labels = [d['label'].lower() for d in f['detections']]
+            labels = [d['label'].lower() for d in f['detections'] if 'label' in d]
             if any(q in labels for q in query.split()):
                 results.append({
                     "timestamp": f['original']['timestamp'],
@@ -105,11 +105,12 @@ class VideoProcessor:
                 })
         return results
 
-    def search_keyframes_by_QA(self, processed_frames, query, score_threshold=0.5):
+    def search_keyframes_by_QA(self, processed_frames, query, score_threshold=0.7):
         """Hướng B: Dùng QA model để match query ↔ context"""
         results = []
         for f in processed_frames:
-            context_text = "This scene contains: " + ", ".join([d['label'] for d in f['detections']])
+            context_text = "This scene contains: " + ", ".join([d['label'] for d in f['detections'] if 'label' in d])
+
             answer = self.qa_pipeline(question=query, context=context_text)
 
             if answer['score'] > score_threshold and answer['answer'].lower() not in ['unknown', '']:
@@ -120,4 +121,38 @@ class VideoProcessor:
                     "answer": answer['answer'],
                     "score": answer['score']
                 })
+        return results
+    
+    def search_keyframes_by_trake(self, processed_frames, events, score_threshold=0.5):
+    # """
+    # Temporal Retrieval and Alignment of Key Events (TRAKE).
+    # Tìm dãy keyframe khớp với chuỗi sự kiện theo đúng thứ tự thời gian.
+    # - processed_frames: list các frame đã xử lý
+    # - events: list[str], mô tả các sự kiện theo thứ tự
+    # """
+        results = []
+        start_idx = 0  # đảm bảo đúng thứ tự thời gian
+
+        for event in events:
+            matched = None
+            for i in range(start_idx, len(processed_frames)):
+                f = processed_frames[i]
+
+                # Tạo context từ object detection
+                context_text = "This scene contains: " + ", ".join(
+                    [d['label'] for d in f['detections']]
+                )
+
+                # Dùng Q&A pipeline để kiểm tra event có xuất hiện không
+                answer = self.qa_pipeline(question=event, context=context_text)
+
+                if answer['score'] > score_threshold and answer['answer'].lower() not in ['unknown', '']:
+                    matched = f['original']['frame_number']
+                    start_idx = i + 1  # bắt đầu tìm event tiếp theo sau frame này
+                    break
+
+            if matched is None:
+                return None  # không tìm đủ chuỗi event
+            results.append(matched)
+
         return results
